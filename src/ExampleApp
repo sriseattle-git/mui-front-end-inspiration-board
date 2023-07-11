@@ -20,7 +20,6 @@ h1 {
 h2 {
   /* border-bottom: 10px solid lightgrey; */
   border: 2px solid black;
-  background-color:mistyrose;
   box-shadow: -15px 7px 1px black;
 }
 
@@ -35,10 +34,6 @@ h2 {
   overflow: scroll;
   margin-right: 2rem;
   border: black solid 1px;
-}
-
-.board__selected {
-  background-color: darkgoldenrod;
 }
 
 .new-board-form__container,
@@ -59,20 +54,14 @@ h2 {
 .new-board-form__form-submit-btn,
 .new-board-form__toggle-btn,
 .new-card-form__form-submit-btn {
-  margin-top: 1em;
   padding: 0.5em;
   background-color: white;
   border: 2px solid black;
 }
 
-.new-board-form__form-input,
-.new-card-form__form-input {
-  margin-bottom: 1em;
-}
-
 .cards__container {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 2fr 1fr;
 }
 
 .card-items__container {
@@ -135,44 +124,4 @@ footer {
 
 .content__container {
   flex: 1 0 auto;
-}
-
-/* Sample React app classes - NOT USED */
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
