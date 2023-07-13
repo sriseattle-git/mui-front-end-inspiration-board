@@ -60,13 +60,16 @@ const NewBoardForm = ( {onCreateBoard} ) => {
             <label htmlFor="title">Title:</label>
             <input
                 className={'new-board-form__form-input ' + formFields.titleClass}
+                id="title"
                 name="title"
                 type="text"
                 value={formFields.title}
-                onChange={onTitleChange} />
+                onChange={onTitleChange} 
+            />
             <label htmlFor="owner">Owner Name:</label>
             <input 
                 className={'new-board-form__form-input ' + formFields.ownerClass}
+                id="owner"
                 name="owner"
                 type="text"
                 value={formFields.owner}

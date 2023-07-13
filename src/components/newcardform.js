@@ -39,6 +39,7 @@ const NewCardForm = ( {onCreateCard} ) => {
             <label htmlFor="cardMsg">Message:</label>
             <input
                 className={'new-card-form__form-input ' + formFields.msgClass}
+                id="cardMsg"
                 name="cardMsg"
                 type="text"
                 value={formFields.message}

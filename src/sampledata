@@ -1,0 +1,65 @@
+  const sampleBoardData = [
+    {
+      id: 1,
+      title: 'First Board',
+      owner: 'Sri R',
+      isSelected: false
+    },
+    {
+      id: 2,
+      title: 'Second Board',
+      owner: 'Sri R',
+      isSelected: false
+    }
+  ];
+
+  const firstBoardCardData = [
+    {
+      id: 1,
+      message: 'B1 says hello',
+      likes: 3
+    },
+    {
+      id: 2,
+      message: 'B1 says hello hello',
+      likes: 0
+    },    
+    {
+      id: 3,
+      message: 'B1 says hello hello hello',
+      likes: 1
+    },    
+    {
+      id: 4,
+      message: 'B1 says hiya',
+      likes: 0
+    },    
+    {
+      id: 5,
+      message: 'B1 says hiya hiya',
+      likes: 2
+    },    
+    {
+      id: 6,
+      message: 'B1 says hiya hiya hiya',
+      likes: 0
+    },
+    {
+      id: 7,
+      message: 'B1 says good day',
+      likes: 3
+    }
+  ];
+
+  const secondBoardCardData = [
+    {
+      id: 1,
+      message: 'B2 says hello',
+      likes: 5
+    },
+    {
+      id: 2,
+      message: 'B2 says good day',
+      likes: 1
+    }
+  ];

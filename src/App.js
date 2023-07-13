@@ -6,103 +6,81 @@ import NewBoardForm from './components/newboardform'
 import NewCardForm from './components/newcardform'
 import axios from 'axios'
 
+const boardURL = 'http://127.0.0.1:5000/boards';
+const cardURL = 'http://127.0.0.1:5000/cards';
+
 function App() {
+  const [boardData, setBoardData] = useState([]);
 
-  const sampleBoardData = [
-    {
-      id: 1,
-      title: 'First Board',
-      owner: 'Sri R',
-      isSelected: false
-    },
-    {
-      id: 2,
-      title: 'Second Board',
-      owner: 'Sri R',
-      isSelected: false
-    }
-  ];
-
-  const firstBoardCardData = [
-    {
-      id: 1,
-      message: 'B1 says hello',
-      likes: 3
-    },
-    {
-      id: 2,
-      message: 'B1 says hello hello',
-      likes: 0
-    },    
-    {
-      id: 3,
-      message: 'B1 says hello hello hello',
-      likes: 1
-    },    
-    {
-      id: 4,
-      message: 'B1 says hiya',
-      likes: 0
-    },    
-    {
-      id: 5,
-      message: 'B1 says hiya hiya',
-      likes: 2
-    },    
-    {
-      id: 6,
-      message: 'B1 says hiya hiya hiya',
-      likes: 0
-    },
-    {
-      id: 7,
-      message: 'B1 says good day',
-      likes: 3
-    }
-  ];
-
-  const secondBoardCardData = [
-    {
-      id: 1,
-      message: 'B2 says hello',
-      likes: 5
-    },
-    {
-      id: 2,
-      message: 'B2 says good day',
-      likes: 1
-    }
-  ];
-
-  const [boardData, setBoardData] = useState(sampleBoardData);
-
-  const [selectedBoardTitle, setSelectedBoardTitle] = useState("");
+  const [selectedBoard, setSelectedBoard] = useState({
+    id: undefined,
+    title: ""
+  });
 
   const [cardData, setCardData] = useState([]);
 
-/*  const fetchBoardsList = () => {
-    setBoardData(sampleBoardData);
+  const NEWBOARDFORMBUTTONSHOWVALUE= "Show New Board Form";
+  const NEWBOARDFORMBUTTONHIDEVALUE = "Hide New Board Form";
+  const [showNewBoardForm, setShowNewBoardForm] = useState({
+    state: false,
+    value: NEWBOARDFORMBUTTONSHOWVALUE
+  });
+
+  const getAllBoards = () => {
+    return( 
+      axios.get(`${boardURL}`)
+      .then((response) => {
+        console.log("Successful get boards API response received");
+        return (convertBoardData(response.data)); })
+      .catch((e) => { console.log(e); })
+    );
   };
-*/
-
-
-/*  if (selectedBoardTitle === "")
-    fetchBoardsList();
-    const selectedBoard = findSelectedBoard();
-    if (selectedBoard)
-      setSelectedBoardTitle(selectedBoard.title);
-    fetchCards(selectedBoard); */
-
-  const findSelectedBoard = () => {
-    const board = boardData.filter((board) => (board.isSelected === true));
-
-    if (board === undefined || board.length === 0) {
-      return undefined;
+  
+  const convertBoardData = (data) => {
+    const boardList = [];
+  
+    // Repopulate newly loaded board data with prior selection status, if one exists
+    for (let board of data) {
+      let newBoard = {
+        id: board.id,
+        title: board.title,
+        owner: board.owner,
+        isSelected: (selectedBoard.id === board.id) ? true : false
+      };
+      boardList.push(newBoard);
     }
-    else {
-      return (board[0]);
-    };
+    return boardList;
+  }
+
+  const getCardsForBoard = (boardId) => {
+    return( 
+      axios.get(`${boardURL}/${boardId}/cards`)
+      .then((response) => {
+        console.log("Successful get cards API response received");
+        return (convertCardData(response.data)); })
+      .catch((e) => { console.log(e); })
+    );
   };
+  
+  const convertCardData = (data) => {
+    const cardList = [];
+  
+    for (let card of data) {
+      let newCard = {
+        id: card.id,
+        message: card.message,
+        likes: card.likes_count,
+      };
+      cardList.push(newCard);
+    }
+  
+    return cardList;  
+  }
+    
+  useEffect( () => {
+    getAllBoards().then((boardList) => setBoardData(boardList));
+    console.log("After getAllBoards");
+  }, []);
 
   const updateBoardSelection = (boardSelected) => {
     const boards = boardData.map((board) => {
@@ -117,34 +95,39 @@ function App() {
     });
 
     setBoardData(boards);
-    setSelectedBoardTitle(boardSelected.title);    
+    setSelectedBoard({id: boardSelected.id, title: boardSelected.title});    
     fetchCards(boardSelected);
   };
 
+  const addNewBoardAPI = (newBoard) => {
+    axios.post(`${boardURL}`, newBoard)
+    .then((response) => {
+      console.log("Post board API call succeeded");
+      // Retrieve updated list of board and update app state
+      getAllBoards().then((boardList) => setBoardData(boardList));
+    })
+    .catch((e) => console.log("Post card call failed", e));        
+  }
   const addNewBoard = (newBoard) => {
-    const newBoardData = [...boardData];
+    addNewBoardAPI(newBoard);
 
-    const nextId = Math.max(...newBoardData.map(board => board.id)) + 1;
-
-    newBoardData.push({
-      id: nextId,
-      title: newBoard.title,
-      owner: newBoard.owner,
-      isSelected: false
-    });
-
-    setBoardData(newBoardData);    
+    // Hide the create new board form - must be visible to create, so toggle will hide it
+    toggleNewBoardFormVisibility();
   };
 
   const fetchCards = (selectedBoard) => {
-    if (selectedBoard) {
-      if (selectedBoard.id === 1)
-        setCardData(firstBoardCardData);
-      else
-        setCardData(secondBoardCardData);
-    }
+    getCardsForBoard(selectedBoard.id).then((cardList) => setCardData(cardList));
+    console.log("After getCardsForBoard");
   };
 
+  const updateCardAPI = (updatedCard) => {
+    axios.patch(`${cardURL}/${updatedCard.id}`)
+    .then((response) => {
+      console.log("Patch card API call succeeded");
+    })
+    .catch((e) => console.log("Patch card call failed", e));
+  }
+  
   const updateCard = (updatedCard) => {
     const cards = cardData.map((card) => {
       if (card.id === updatedCard.id) {
@@ -154,28 +137,71 @@ function App() {
       }
     });
 
+    updateCardAPI(updatedCard);
     setCardData(cards);
   };
 
-  const deleteCard = (cardtodelete) => {
-    const cards = cardData.filter((card) => (card.id !== cardtodelete.id));
+  const deleteCardAPI = (deletedCard) => {
+    axios.delete(`${cardURL}/${deletedCard.id}`)
+    .then((response) => {
+      console.log("Delete card API call succeeded");
+      // Retrieve list of cards for the board and update its state in the app 
+      return(getCardsForBoard(selectedBoard.id).then((cardList) => setCardData(cardList)));      
+    })
+    .catch((e) => console.log("Delete card call failed", e));    
+  }
+
+  const deleteCard = (cardToDelete) => {
+    // Leaving code below for reference on how to filter - not needed anymore
+    const cards = cardData.filter((card) => (card.id !== cardToDelete.id));
     
-    setCardData(cards);
+    // API call to delete card also refreshes list of cards
+    deleteCardAPI(cardToDelete);
   };
+
+  const postNewCardAPI = (newCard, boardId) => {
+    let postReq = {
+      message: newCard.message
+    };
+
+    axios.post(`${boardURL}/${boardId}/cards`, postReq)
+    .then((response) => {
+      console.log("Post card API call succeeded");
+      return(getCardsForBoard(boardId).then((cardList) => setCardData(cardList)));
+    })
+    .catch((e) => console.log("Post card call failed", e));    
+  }
 
   const addNewCard = (newCardMsg) => {
-    const newCardData = [...cardData];
-
-    const nextId = Math.max(...newCardData.map(card => card.id)) + 1;
-
-    newCardData.push({
+    // Generated id is going to be ignored by the API, but keeping it here for future reference
+    const nextId = Math.max(...cardData.map(card => card.id)) + 1;
+    let newCard = {
       id: nextId,
       message: newCardMsg,
       likes: 0
-    });
+    }
 
-    setCardData(newCardData);
+    postNewCardAPI(newCard, selectedBoard.id);
   };
+
+  const toggleNewBoardFormVisibility = () => {
+    let newState = !showNewBoardForm.state;
+    let newValue;
+
+    if (newState)
+      newValue = NEWBOARDFORMBUTTONHIDEVALUE;
+    else
+      newValue = NEWBOARDFORMBUTTONSHOWVALUE;
+
+    setShowNewBoardForm({
+      state: newState,
+      value: newValue
+    });
+  }
+
+  const onNewBoardShowButtonClick = () => {
+    toggleNewBoardFormVisibility();
+  }
 
   return(
     <div className='page__container'>
@@ -185,23 +211,29 @@ function App() {
           <Boards 
             boards={boardData}
             onBoardSelection={updateBoardSelection} />
-          <section className='new-board-form__container'>
-            <h2>Create a New Board</h2>
-            <NewBoardForm onCreateBoard={addNewBoard} />
-          </section>
-        </section>
-        <section className='cards__container'>
-          <CardList 
-            boardName={selectedBoardTitle}
-            cards={cardData}
-            onUpdateCard={updateCard}
-            onDeleteCard={deleteCard}
-          />
           <section className='new-card-form__container'>
             <h2>New Card</h2>
             <NewCardForm onCreateCard={addNewCard}/>
+          </section>                
+          <section className='new-board-form__container'>
+            <h2>Create a New Board</h2>
+            {showNewBoardForm.state && 
+              <NewBoardForm onCreateBoard={addNewBoard} />
+            }
+            <span className='new-board-form__toggle-btn' onClick={onNewBoardShowButtonClick}>{showNewBoardForm.value}</span>
           </section>
+          {(selectedBoard.id === undefined) && <h3>Select a Board Please</h3>}      
         </section>
+        {(selectedBoard.id !== undefined) && 
+          <section className='cards__container'>
+            <CardList 
+              boardName={selectedBoard.title}
+              cards={cardData}
+              onUpdateCard={updateCard}
+              onDeleteCard={deleteCard}
+            />
+          </section>
+        }
       </div>
     </div>
   )

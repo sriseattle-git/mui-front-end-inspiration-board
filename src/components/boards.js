@@ -4,17 +4,19 @@ import Board from './board'
 
 const Boards = ({ boards, onBoardSelection }) => {
     const getBoardList = (boards) => {
-        return boards.map((board) => {
-            return(
-                <Board key={board.id.toString()}
-                    id={board.id}
-                    title={board.title}
-                    owner={board.owner}
-                    isSelected={board.isSelected}
-                    onBoardSelection={onBoardSelection}
-                />
-            );
-        });
+        if (boards) {
+            return boards.map((board) => {
+                return(
+                    <Board key={board.id.toString()}
+                        id={board.id}
+                        title={board.title}
+                        owner={board.owner}
+                        isSelected={board.isSelected}
+                        onBoardSelection={onBoardSelection}
+                    />
+                );
+            });
+        }
     }
 
     return(
