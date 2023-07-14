@@ -17,11 +17,13 @@ h1 {
   transform: rotate(-5deg) skew(-10deg);
 }
 
-h2 {
+.area__names {
   /* border-bottom: 10px solid lightgrey; */
   border: 2px solid black;
+  border-radius: 0.5em;
   background-color:mistyrose;
-  box-shadow: -15px 7px 1px black;
+  box-shadow: -15px 7px 1px darkgray;
+  margin: 0.5rem
 }
 
 .boards__container {
@@ -30,11 +32,12 @@ h2 {
 }
 
 .boards__list {
-  max-height: 9rem;
+  max-height: 12rem;
   min-height: 9rem;
   overflow: scroll;
   margin-right: 2rem;
   border: black solid 1px;
+  border-radius: 0.5em;
 }
 
 .board__selected {
@@ -46,8 +49,9 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding-left: 1 em;
-  padding-right: 2em;
+  margin-left: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
 .new-board-form__form,
@@ -65,6 +69,7 @@ h2 {
   padding: 0.5em;
   background-color: white;
   border: 2px solid black;
+  border-radius: 0.5em;
 }
 
 .new-board-form__form-input,
@@ -75,6 +80,7 @@ h2 {
 .cards__container {
   display: grid;
   grid-template-columns: auto;
+  margin: 0.5rem;
 }
 
 .card-items__container {
@@ -95,6 +101,9 @@ h2 {
   justify-content: center;
   padding: 2rem;
   flex-direction: column;
+  border-radius: 2em;
+  border-color: black;
+  border-style:groove;
 }
 
 .card-item__controls {

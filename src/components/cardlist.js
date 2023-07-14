@@ -20,7 +20,7 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
 
     return(
         <section>
-            <h2> Cards for {boardName}</h2>
+            <h2 className='area__names'> Cards for {boardName}</h2>
             <div className='card-items__container'>
                 {getCardListJSX(cards)}
             </div>

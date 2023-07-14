@@ -5,6 +5,7 @@ import CardList from './components/cardlist'
 import NewBoardForm from './components/newboardform'
 import NewCardForm from './components/newcardform'
 import axios from 'axios'
+import Paper from "@mui/material/Paper";
 
 const boardURL = 'http://127.0.0.1:5000/boards';
 const cardURL = 'http://127.0.0.1:5000/cards';
@@ -203,6 +204,10 @@ function App() {
     toggleNewBoardFormVisibility();
   }
 
+  // NOTE: Previously, app.css had a style applied to all h2 elements for border and shadow.
+  // When I used the DialogTitle component, discovered that React always uses h2 element for the title
+  // and there's no way to change this. So changed app.css to have a new class that specifies the style
+  // used for border and shadow and applied them to all h2 elements.
   return(
     <div className='page__container'>
       <div className='content__container'>
@@ -212,11 +217,11 @@ function App() {
             boards={boardData}
             onBoardSelection={updateBoardSelection} />
           <section className='new-card-form__container'>
-            <h2>New Card</h2>
+            <h2 className='area__names'>New Card</h2>
             <NewCardForm onCreateCard={addNewCard}/>
           </section>                
           <section className='new-board-form__container'>
-            <h2>Create a New Board</h2>
+            <h2 className='area__names'>Create a New Board</h2>
             {showNewBoardForm.state && 
               <NewBoardForm onCreateBoard={addNewBoard} />
             }
@@ -225,14 +230,14 @@ function App() {
           {(selectedBoard.id === undefined) && <h3>Select a Board Please</h3>}      
         </section>
         {(selectedBoard.id !== undefined) && 
-          <section className='cards__container'>
+          <Paper elevation={4} className='cards__container'>
             <CardList 
               boardName={selectedBoard.title}
               cards={cardData}
               onUpdateCard={updateCard}
               onDeleteCard={deleteCard}
             />
-          </section>
+          </Paper>
         }
       </div>
     </div>

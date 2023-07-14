@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 const Board = ( {id, title, owner, isSelected, onBoardSelection}) => {
     const onBoardSelectionClick = (board) => {
@@ -16,9 +20,13 @@ const Board = ( {id, title, owner, isSelected, onBoardSelection}) => {
 
     const itemFormat = isSelected ? 'board__selected' : '';
     return(
-        <li>
-            <div className={itemFormat} onClick={onBoardSelectionClick}>{title}</div>
-        </li>
+        <ListItem disablePadding>
+            <ListItemButton
+                selected={isSelected}
+                onClick={onBoardSelectionClick}>
+                <ListItemText primary={title} />
+            </ListItemButton>
+        </ListItem>
     );
 }
 

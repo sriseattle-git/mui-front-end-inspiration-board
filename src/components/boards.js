@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Board from './board'
+import List from '@mui/material/List';
 
 const Boards = ({ boards, onBoardSelection }) => {
     const getBoardList = (boards) => {
@@ -21,10 +22,10 @@ const Boards = ({ boards, onBoardSelection }) => {
 
     return(
         <section>
-            <h2>Boards</h2>
-            <ol className='boards__list'>
+            <h2 className='area__names'>Boards</h2>
+            <List component="nav" className='boards__list'>
                 {getBoardList(boards)}
-            </ol>
+            </List>
         </section>
     );   
 }
