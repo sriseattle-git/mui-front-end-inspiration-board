@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { TextField, Button } from '@mui/material';
 
 const NewBoardForm = ( {onCreateBoard} ) => {
 
@@ -57,6 +58,44 @@ const NewBoardForm = ( {onCreateBoard} ) => {
 
     return (
         <form className='new-board-form__form' onSubmit={onCreateBoardFormSubmit}>
+            <TextField 
+                label="Message" 
+                variant="outlined" 
+                type="text"
+                required
+                value={formFields.title} 
+                onChange={onTitleChange}
+                error={formFields.titleClass === 'invalid-form-input'}
+                sx={{ mb: 2}}
+            />
+            <TextField 
+                label="Message" 
+                variant="outlined" 
+                type="text"
+                required
+                value={formFields.owner} 
+                onChange={onOwnerChange}
+                error={formFields.ownerClass === 'invalid-form-input'}
+                sx={{ mb: 2}}
+            />
+            <Button 
+                variant="outlined" 
+                color="info" 
+                type="submit" 
+                disabled={((formFields.titleClass === '') && (formFields.ownerClass === '')) ? false : true}>
+                Add Board
+            </Button>
+        </form>
+    );
+};
+
+NewBoardForm.propTypes = {
+    onCreateBoard: PropTypes.func.isRequired
+};
+
+export default NewBoardForm;
+
+/* Previous form using HTML elements
             <label htmlFor="title">Title:</label>
             <input
                 className={'new-board-form__form-input ' + formFields.titleClass}
@@ -81,12 +120,4 @@ const NewBoardForm = ( {onCreateBoard} ) => {
                 value="Add Board"
                 disabled={((formFields.titleClass === '') && (formFields.ownerClass === '')) ? false : true}
             />
-        </form>
-    );
-};
-
-NewBoardForm.propTypes = {
-    onCreateBoard: PropTypes.func.isRequired
-};
-
-export default NewBoardForm;
+*/

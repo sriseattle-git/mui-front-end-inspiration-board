@@ -10,13 +10,13 @@ import FormLabel from '@mui/material/FormLabel';
 import { IconButton, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import SortIcon from '@mui/icons-material/Sort';
-import { red, grey } from '@mui/material/colors';
+import { grey } from '@mui/material/colors';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import Box from '@mui/material/Box';
 
 const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
-    const [sortButtonValue, setSortButtonValue] = useState("ID");
+    const [sortButtonValue, setSortButtonValue] = useState("Age");
     const [sortOrder, setSortOrder] = useState("Ascending");
 
     // Compare function return values: 
@@ -26,7 +26,7 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
         const lesserRetVal = (sortOrder === "Ascending") ? -1 : 1;
 
         switch (sortButtonValue) {
-            case "ID": {
+            case "Age": {
                 if (a.id > b.id)
                     return greaterRetVal;
                 else if (a.id < b.id)
@@ -105,14 +105,13 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
                 <Box sx={{ p: 1, display: 'inline-flex', border: '2px solid black', 
                             boxShadow: 10, borderRadius: 2, alignItems: 'center', 
                             backgroundColor: 'azure', ml: 1, mt: 1, mr: 3 }}>
-                    <Typography variant='h5' >Cards for 
-                        <Typography variant='h4' sx={{ display: 'inline'}}> {boardName}</Typography>
-                    </Typography>
+                    <Typography variant='h5' >Cards for</Typography>
+                    <Typography variant='h4' component='span' sx={{ display: 'inline', ml: 1}}>{boardName}</Typography>
                 </Box>
                 <Box sx={{ p: 1, display: 'inline-flex', border: '1px solid black', 
                             boxShadow: 10, borderRadius: 2, alignItems: 'center', 
                             backgroundColor: 'azure', mr: 1, mt: 1 }}>
-                    {(sortOrder === "Ascending") ? <ArrowUpwardIcon sx={{alignItems: 'bottom'}} /> : <ArrowDownwardIcon />}                                        
+                    {(sortOrder === "Ascending") ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}                                        
                     <Tooltip title="Sort Order">
                         <IconButton sx={{transform: 'rotate(360deg)'}} onClick={handleSortOrderChange}>
                             <SortIcon sx={{ color: grey[800], mr: 3}} />
@@ -127,7 +126,7 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
                             value={sortButtonValue}
                             onChange={handleSortButtonChange}
                         >
-                            <FormControlLabel value="ID" control={<Radio />} label="ID" />
+                            <FormControlLabel value="Age" control={<Radio />} label="Age" />
                             <FormControlLabel value="Message" control={<Radio />} label="Message" />
                             <FormControlLabel value="LikesCount" control={<Radio />} label="Likes Count" />
                         </RadioGroup>

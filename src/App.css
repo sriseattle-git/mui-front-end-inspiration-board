@@ -19,6 +19,7 @@ h1 {
   margin-bottom: 3rem;
   margin-top: 1rem;
   transform: rotate(-5deg) skew(-10deg);
+  box-shadow: -7px 7px 1px lightgray;
 }
 
 .area__names {

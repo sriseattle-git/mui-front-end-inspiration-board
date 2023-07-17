@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { TextField, Button } from '@mui/material';
 
 const NewCardForm = ( {onCreateCard} ) => {
 
@@ -36,6 +37,35 @@ const NewCardForm = ( {onCreateCard} ) => {
 
     return (
         <form className='new-card-form__form' onSubmit={onAddCardFormSubmit} >
+            <TextField 
+                label="Message" 
+                variant="outlined" 
+                type="text"
+                required
+                value={formFields.message} 
+                onChange={onMsgChange}
+                error={formFields.msgClass === 'invalid-form-input'}
+                sx={{ mb: 2}}
+            />
+            <Button 
+                variant="outlined" 
+                color="info" 
+                type="submit" 
+                size='medium'
+                disabled={(formFields.msgClass === '') ? false : true}>
+                Add Card
+            </Button>
+        </form>
+    );
+};
+
+NewCardForm.propTypes = {
+    onCreateCard: PropTypes.func.isRequired
+}
+
+export default NewCardForm;
+
+/* Form using HTML controls
             <label htmlFor="cardMsg">Message:</label>
             <input
                 className={'new-card-form__form-input ' + formFields.msgClass}
@@ -51,12 +81,4 @@ const NewCardForm = ( {onCreateCard} ) => {
                 value="Add Card" 
                 disabled={(formFields.msgClass === '') ? false : true}
             />
-        </form>
-    );
-};
-
-NewCardForm.propTypes = {
-    onCreateCard: PropTypes.func.isRequired
-}
-
-export default NewCardForm;
+*/

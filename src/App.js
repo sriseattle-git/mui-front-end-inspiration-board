@@ -6,7 +6,7 @@ import NewBoardForm from './components/newboardform'
 import NewCardForm from './components/newcardform'
 import axios from 'axios'
 import Paper from "@mui/material/Paper";
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 
 const boardURL = 'http://127.0.0.1:5000/boards';
@@ -217,7 +217,8 @@ function App() {
         <section className='boards__container'>
           <Boards 
             boards={boardData}
-            onBoardSelection={updateBoardSelection} />
+            onBoardSelection={updateBoardSelection} 
+          />
           <section className='new-card-form__container'>
             <Box sx={{ p: 2, display: 'inline-flex', border: '2px solid black', 
                         boxShadow: 10, borderRadius: 2, alignItems: 'center', 
@@ -235,9 +236,16 @@ function App() {
             {showNewBoardForm.state && 
               <NewBoardForm onCreateBoard={addNewBoard} />
             }
-            <span className='new-board-form__toggle-btn' onClick={onNewBoardShowButtonClick}>{showNewBoardForm.value}</span>
+            <Button 
+                variant="outlined" 
+                color="info" 
+                type="submit" 
+                size='medium'
+                onClick={onNewBoardShowButtonClick}>
+                {showNewBoardForm.value}
+            </Button>
           </section>
-          {(selectedBoard.id === undefined) && <h3>Select a Board Please</h3>}      
+          {(selectedBoard.id === undefined) && <Typography variant='h5' color='error' sx={{ mt: 2}}> Select a Board Please</Typography>}      
         </section>
         {(selectedBoard.id !== undefined) && 
           <Paper elevation={4} className='cards__container'>
@@ -279,3 +287,7 @@ function App() {
 */
 
 export default App;
+
+/* Previous implementation of create board form hide/show button
+   <span className='new-board-form__toggle-btn' onClick={onNewBoardShowButtonClick}>{showNewBoardForm.value}</span>
+*/

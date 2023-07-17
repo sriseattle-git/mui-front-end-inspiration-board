@@ -54,25 +54,6 @@ const Card = ( {id, message, likes, onUpdateCard, onDeleteCard} ) => {
         console.log("On closure of alert dialog");
     };
 
-/*
-    return(
-        <div className='card-item'>
-            <p className='card-item__message'>{message}</p>
-            <ul className='card-item__controls'>
-                <li>
-                    <p>{likes.toString()} 💕</p>
-                </li>
-                <li>
-                    <p onClick={onLikesButtonClick}>+1</p>
-                </li>
-                <li>
-                    <p className='card-item__delete' onClick={onDeleteButtonClick}>Delete</p>
-                </li>
-            </ul>
-        </div>
-    );
-*/
-
     return(
         <div className='card-item'>
             <CardContent>
@@ -123,3 +104,22 @@ Card.propTypes = {
 };
 
 export default Card;
+
+/* Previous JSX using only HTML elements
+    return(
+        <div className='card-item'>
+            <p className='card-item__message'>{message}</p>
+            <ul className='card-item__controls'>
+                <li>
+                    <p>{likes.toString()} 💕</p>
+                </li>
+                <li>
+                    <p onClick={onLikesButtonClick}>+1</p>
+                </li>
+                <li>
+                    <p className='card-item__delete' onClick={onDeleteButtonClick}>Delete</p>
+                </li>
+            </ul>
+        </div>
+    );
+*/

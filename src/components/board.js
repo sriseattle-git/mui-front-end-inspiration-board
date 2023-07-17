@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
 const Board = ( {id, title, owner, isSelected, onBoardSelection}) => {
@@ -16,9 +15,8 @@ const Board = ( {id, title, owner, isSelected, onBoardSelection}) => {
         };
 
         onBoardSelection(selectedBoard);
-    }
-
-    const itemFormat = isSelected ? 'board__selected' : '';
+    };
+    
     return(
         <ListItem disablePadding>
             <ListItemButton
