@@ -7,7 +7,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import SortIcon from '@mui/icons-material/Sort';
 import { red, grey } from '@mui/material/colors';
@@ -94,14 +94,24 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
     being broken. Plus the "Sort By" text label on top was not included in the border. With these 2 changes
     everything just works. Also, the p style element sets the size of the box and the alignItems attribute on 
     the box centered that icon. By putting the Cards header text inside a Box element along with the sort 
-    controls, I'm now able to use So cool! 
+    controls, I'm now able to use justify-content attribute to space the sort controls at the right end of the
+    window like I wanted. So cool! Only problem is that when the window size is reduced, the sort controls don't
+    move to a new row now like they used to before I did this justification thing. Oh well.
 */
 
     return(
         <section>
-            <Box className='cards-container__header'>
-                <h2 className='area__names'> Cards for {boardName} </h2>
-                <Box sx={{ p: 1, display: 'inline-flex', border: '1px solid black', boxShadow: 10, borderRadius: 2, alignItems: 'center', mr: 1, mt: 1 }}>
+            <div className='cards-container__header'>
+                <Box sx={{ p: 1, display: 'inline-flex', border: '2px solid black', 
+                            boxShadow: 10, borderRadius: 2, alignItems: 'center', 
+                            backgroundColor: 'azure', ml: 1, mt: 1, mr: 3 }}>
+                    <Typography variant='h5' >Cards for 
+                        <Typography variant='h4' sx={{ display: 'inline'}}> {boardName}</Typography>
+                    </Typography>
+                </Box>
+                <Box sx={{ p: 1, display: 'inline-flex', border: '1px solid black', 
+                            boxShadow: 10, borderRadius: 2, alignItems: 'center', 
+                            backgroundColor: 'azure', mr: 1, mt: 1 }}>
                     {(sortOrder === "Ascending") ? <ArrowUpwardIcon sx={{alignItems: 'bottom'}} /> : <ArrowDownwardIcon />}                                        
                     <Tooltip title="Sort Order">
                         <IconButton sx={{transform: 'rotate(360deg)'}} onClick={handleSortOrderChange}>
@@ -123,7 +133,7 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
                         </RadioGroup>
                     </FormControl>
                 </Box>
-            </Box>
+            </div>
             <div className='card-items__container'>
                 {getCardListJSX(cards)}
             </div>

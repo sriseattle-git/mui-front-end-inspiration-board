@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Board from './board'
 import List from '@mui/material/List';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 
 const Boards = ({ boards, onBoardSelection }) => {
     const getBoardList = (boards) => {
@@ -22,7 +24,11 @@ const Boards = ({ boards, onBoardSelection }) => {
 
     return(
         <section>
-            <h2 className='area__names'>Boards</h2>
+            <Box sx={{ p: 2, display: 'inline-flex', border: '2px solid black', 
+                        boxShadow: 10, borderRadius: 2, alignItems: 'center', 
+                        backgroundColor: 'azure', ml: 1, mt: 1, mr: 3, mb: 2 }}>
+                <Typography variant='h5' >Boards</Typography>
+            </Box>
             <List component="nav" className='boards__list'>
                 {getBoardList(boards)}
             </List>

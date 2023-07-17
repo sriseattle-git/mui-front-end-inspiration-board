@@ -6,6 +6,8 @@ import NewBoardForm from './components/newboardform'
 import NewCardForm from './components/newcardform'
 import axios from 'axios'
 import Paper from "@mui/material/Paper";
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 
 const boardURL = 'http://127.0.0.1:5000/boards';
 const cardURL = 'http://127.0.0.1:5000/cards';
@@ -217,11 +219,19 @@ function App() {
             boards={boardData}
             onBoardSelection={updateBoardSelection} />
           <section className='new-card-form__container'>
-            <h2 className='area__names'>New Card</h2>
+            <Box sx={{ p: 2, display: 'inline-flex', border: '2px solid black', 
+                        boxShadow: 10, borderRadius: 2, alignItems: 'center', 
+                        backgroundColor: 'azure', ml: 1, mt: 1, mr: 3, mb: 2 }}>
+                <Typography variant='h5' >New Card</Typography>
+            </Box>            
             <NewCardForm onCreateCard={addNewCard}/>
           </section>                
           <section className='new-board-form__container'>
-            <h2 className='area__names'>Create a New Board</h2>
+            <Box sx={{ p: 2, display: 'inline-flex', border: '2px solid black', 
+                        boxShadow: 10, borderRadius: 2, alignItems: 'center', 
+                        backgroundColor: 'azure', ml: 1, mt: 1, mr: 3, mb: 2 }}>
+                <Typography variant='h5' > Create Board</Typography>
+            </Box>
             {showNewBoardForm.state && 
               <NewBoardForm onCreateBoard={addNewBoard} />
             }
