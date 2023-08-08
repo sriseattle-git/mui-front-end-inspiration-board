@@ -59,7 +59,7 @@ const NewBoardForm = ( {onCreateBoard} ) => {
     return (
         <form className='new-board-form__form' onSubmit={onCreateBoardFormSubmit}>
             <TextField 
-                label="Message" 
+                label="Title" 
                 variant="outlined" 
                 type="text"
                 required
@@ -69,7 +69,7 @@ const NewBoardForm = ( {onCreateBoard} ) => {
                 sx={{ mb: 2}}
             />
             <TextField 
-                label="Message" 
+                label="Owner" 
                 variant="outlined" 
                 type="text"
                 required

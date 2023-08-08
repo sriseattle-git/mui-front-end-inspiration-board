@@ -105,7 +105,7 @@ const CardList = ({boardName, cards, onUpdateCard, onDeleteCard}) => {
                 <Box sx={{ p: 1, display: 'inline-flex', border: '2px solid black', 
                             boxShadow: 10, borderRadius: 2, alignItems: 'center', 
                             backgroundColor: 'azure', ml: 1, mt: 1, mr: 3 }}>
-                    <Typography variant='h5' >Cards for</Typography>
+                    <Typography variant='h5' >Notes for</Typography>
                     <Typography variant='h4' component='span' sx={{ display: 'inline', ml: 1}}>{boardName}</Typography>
                 </Box>
                 <Box sx={{ p: 1, display: 'inline-flex', border: '1px solid black', 

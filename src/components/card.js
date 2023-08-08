@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import '../App.css';
 import CardActions from '@mui/material/CardActions';
@@ -19,6 +19,7 @@ import Button from '@mui/material/Button';
 const Card = ( {id, message, likes, onUpdateCard, onDeleteCard} ) => {
 
     const [fireDelAlert, setDelAlertState] = useState(false);
+    const noButtonRef = useRef(null);
 
     const onLikesButtonClick = () => {
         const updatedCard = {
@@ -54,6 +55,11 @@ const Card = ( {id, message, likes, onUpdateCard, onDeleteCard} ) => {
         console.log("On closure of alert dialog");
     };
 
+    // Material UI Notes: 
+    // 1. Dialog disableRestoreFocus attrib: prevents keyboard focus on delete button after dialog dismissed
+    // 2. Button autoFocus attrib: puts keyboard focus on button so Enter key works - but no visual indication
+    //      until keyboard is used.
+
     return(
         <div className='card-item'>
             <CardContent>
@@ -76,6 +82,7 @@ const Card = ( {id, message, likes, onUpdateCard, onDeleteCard} ) => {
                 <Dialog
                     open={fireDelAlert}
                     onClose={handleDelAlertClose}
+                    disableRestoreFocus
                 >
                     <DialogTitle>
                         {"Delete this card?"}
@@ -87,7 +94,7 @@ const Card = ( {id, message, likes, onUpdateCard, onDeleteCard} ) => {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleDeleteConfirmation}>Yes</Button>
-                        <Button onClick={handleDeleteRejection}>No</Button>
+                        <Button ref={noButtonRef} onClick={handleDeleteRejection} autoFocus>No</Button>
                     </DialogActions>
                 </Dialog>
             </CardActions>

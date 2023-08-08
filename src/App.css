@@ -13,7 +13,7 @@ h2 {
 }
 
 h1 {
-  background-color: yellow;
+  background-color: rgb(255, 248, 165);
   border: 2px solid black;
   border-radius: 0.5em;
   margin-bottom: 3rem;
@@ -56,7 +56,7 @@ h1 {
 .new-board-form__container,
 .new-card-form__container {
   display: flex;
-  flex-basis: 30%;
+  flex-basis: 25%;
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;

@@ -53,7 +53,7 @@ const NewCardForm = ( {onCreateCard} ) => {
                 type="submit" 
                 size='medium'
                 disabled={(formFields.msgClass === '') ? false : true}>
-                Add Card
+                Add Note
             </Button>
         </form>
     );

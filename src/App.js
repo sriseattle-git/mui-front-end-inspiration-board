@@ -9,8 +9,8 @@ import Paper from "@mui/material/Paper";
 import { Typography, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 
-const boardURL = 'http://127.0.0.1:5000/boards';
-const cardURL = 'http://127.0.0.1:5000/cards';
+const boardURL = `${process.env.REACT_APP_BACKEND_URL}/boards`;
+const cardURL = `${process.env.REACT_APP_BACKEND_URL}/cards`;
 
 function App() {
   const [boardData, setBoardData] = useState([]);
@@ -223,7 +223,7 @@ function App() {
             <Box sx={{ p: 2, display: 'inline-flex', border: '2px solid black', 
                         boxShadow: 10, borderRadius: 2, alignItems: 'center', 
                         backgroundColor: 'azure', ml: 1, mt: 1, mr: 3, mb: 2 }}>
-                <Typography variant='h5' >New Card</Typography>
+                <Typography variant='h5' >New Note</Typography>
             </Box>            
             <NewCardForm onCreateCard={addNewCard}/>
           </section>                
